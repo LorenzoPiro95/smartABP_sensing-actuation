@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH -p std
+#SBATCH --constraint nogpu
+#SBATCH --time 100:00:00      # format: HH:MM:SS
+#SBATCH -N 1                 # 1 node
+#SBATCH --ntasks-per-node=1  # 1 core per node
+#SBATCH --mem=128000         # memory per node n MB out of 256 GB
+#SBATCH --job-name=epr
+##SBATCH --mail-type=ALL
+##SBATCH --mail-user=<user_email>
+
+./epr_sim -n ${1} -A 0. -name_flow Const -policy SP -N 1 -theta0 0. -dt 0.00001 -tmax 500000 -t_steady 10000 -kappa 1. -mu 50. -Pe_r 10. -sigma_m 0.01 -tsave 10000 -save_epr -save_moments -save_trajs -target_point -R_cutoff 0.1
+
+echo "Done"
